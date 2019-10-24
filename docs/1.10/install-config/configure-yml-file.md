@@ -200,6 +200,16 @@ The following table lists the additional, optional parameters that you can set t
     <td valign="top"><code>redirect</code></td>
     <td valign="top">Set <code>disable</code> to <code>true</code> when you want to disable registry redirect</td>
   </tr>
+   <tr>
+    <td valign="top"><code>middleware_service</code></td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">By default, Harbor do not use middleware services of registry, but you can optionally configure the `middleware_service` setting so that Harbor uses middleware service.</td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">None</td>
+    <td valign="top">You can set <code>cloudfront</code> or <code>redirect</code>. For information about how to configure other middleware, see <a href="#middleware">Configuring a Middleware Services</a> below.</td>
+  </tr>
   <tr>
     <td valign="top"><code>external_database</code></td>
     <td valign="top">&nbsp;</td>
@@ -316,6 +326,19 @@ storage_service:
     container: docker_images"
   redirect:
     disable: false
+```
+
+## Configuring a Middleware Service {#middleware}
+
+By default, Harbor do not use middleware services of registry, but you can optionally configure the `middleware_service` setting so that Harbor uses middleware service. For information about how to configure the middleware service of a registry, see the [Middleware Configuration Reference](https://docs.docker.com/registry/configuration/#middleware).  For example, you may consider used a more efficient delivery like Cloudfront, Redirect ( proxy cache for the layer ).
+
+``` yaml
+middleware_service:
+  cloudfront:
+      baseurl: http://d111111abcdef8.cloudfront.net
+      privatekey: /path/to/asecret.pem
+      keypairid: asecret
+      duration: 60s
 ```
 
 ## What to Do Next
