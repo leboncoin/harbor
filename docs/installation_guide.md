@@ -182,6 +182,19 @@ refer to **[Configuring Harbor with HTTPS Access](configure_https.md)**.
 
 #### Configuring storage backend (optional)
 
+- **middleware_service**: By default, Harbor serve images directly from your storage service. In a production environment , you may consider used a more efficient delivery like Cloudfront, Redirect ( proxy cache for the layer )
+  - **middleware_name**: Middleware config for registry, for more information about this configuration please refer https://docs.docker.com/registry/configuration/
+
+``` yaml
+middleware_service:
+  cloudfront:    
+      baseurl: http://d111111abcdef8.cloudfront.net
+      privatekey: /path/to/asecret.pem
+      keypairid: asecret
+      duration: 60s
+```
+
+
 - **storage_service**: By default, Harbor stores images and chart on your local filesystem. In a production environment, you may consider use other storage backend instead of the local filesystem, like S3, OpenStack Swift, Ceph, etc. These parameters are configurations for registry.
   - **ca_bundle**:  The path to the custom root ca certificate, which will be injected into the trust store of registry's and chart repository's containers.  This is usually needed when the user hosts a internal storage with self signed certificate.
   - **provider_name**: Storage configs for registry, default is filesystem. for more info about this configuration please refer https://docs.docker.com/registry/configuration/
